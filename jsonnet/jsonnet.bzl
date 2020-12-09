@@ -180,7 +180,7 @@ def _jsonnet_to_json_impl(ctx):
     if ctx.attr.stamp_keys and not stamp_inputs:
         fail("Stamping requested but found no stamp variable to resolve for.")
 
-    other_args = ctx.attr.extra_args + (["-y"] if ctx.attr.yaml_stream else [])
+    other_args = ctx.attr.extra_args + (["-y"] if ctx.attr.yaml_stream else []) + (["-S"] if ctx.attr.expect_string else [])
 
     command = (
         [
@@ -493,6 +493,10 @@ _jsonnet_compile_attrs = {
         mandatory = False,
     ),
     "yaml_stream": attr.bool(
+        default = False,
+        mandatory = False,
+    ),
+    "expect_string": attr.bool(
         default = False,
         mandatory = False,
     ),
